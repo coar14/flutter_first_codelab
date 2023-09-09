@@ -2,11 +2,23 @@ import 'package:flutter/material.dart';
 
 import 'generator_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  var selectedRailIndex = 0;
+  @override
   Widget build(BuildContext context) {
+    Widget selectedPage = switch (selectedRailIndex) {
+      0 => const GeneratorPage(),
+      1 => const Placeholder(),
+      _ => throw UnimplementedError('No page for index $selectedRailIndex'),
+    };
+
     return Scaffold(
       body: Row(
         children: [
@@ -22,15 +34,17 @@ class HomePage extends StatelessWidget {
                 label: Text('Favorites'),
               ),
             ],
-            selectedIndex: 0,
+            selectedIndex: selectedRailIndex,
             onDestinationSelected: (int index) {
-              debugPrint('selected index: $index');
+              setState(() {
+                selectedRailIndex = index;
+              });
             },
           ),
           Expanded(
             child: Container(
               color: Theme.of(context).colorScheme.primaryContainer,
-              child: const GeneratorPage(),
+              child: selectedPage,
             ),
           ),
         ],
