@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'favorites_page.dart';
 import 'generator_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Widget selectedPage = switch (selectedRailIndex) {
       0 => const GeneratorPage(),
-      1 => const Placeholder(),
+      1 => const FavoritesPage(),
       _ => throw UnimplementedError('No page for index $selectedRailIndex'),
     };
 
